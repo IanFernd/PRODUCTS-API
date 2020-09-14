@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ProductsAPI.Data.Request;
 using ProductsAPI.Models.Helpers;
+using Email.Service.SmtpSetting;
+using Email.Service.Entity;
+using Email.Service.Format;
+using Email.Service;
 
 namespace ProductsAPI.Models
 {
@@ -16,13 +20,13 @@ namespace ProductsAPI.Models
         private OrderModel _orderModel;
         private BuyHelper _buyHelper;
         
-        public BuyModel()
+        public BuyModel(IMailer mailer)
         {
             _buyDataAccess = new BuyDataAccess();
             _clientDataAccess = new ClientDataAccess();
             _orderDataAccess = new OrderDataAccess();
             _orderModel = new OrderModel();
-            _buyHelper = new BuyHelper();
+            _buyHelper = new BuyHelper(mailer);
         }
 
 
@@ -72,7 +76,7 @@ namespace ProductsAPI.Models
         
         #region POST
 
-  
+
         public int PostBuy(LoadBuyRequest request)
         {
             try

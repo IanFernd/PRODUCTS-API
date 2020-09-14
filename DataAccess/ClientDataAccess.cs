@@ -140,7 +140,7 @@ namespace ProductsAPI.Models
             int idClientResponse;
             try
             {
-                ClientsEntity clientEntity = new ClientsEntity()
+                var clientEntity = new ClientsEntity()
                 {
                     Name = request.Name,
                     Surname = request.Surname,

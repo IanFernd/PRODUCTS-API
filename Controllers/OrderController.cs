@@ -29,47 +29,15 @@ namespace ProductsAPI.Controllers
             _mailer = mailer;
         }
 
+
         #region GET
 
-        [HttpGet]
-        public GetOrderDetailResponse GetOrderDetail(string request)
-        {
-            var getOrderDetailRequest = JsonSerializer.Deserialize<GetOrderDetailRequest>(request);
-            return _orderModel.GetOrderDetail(getOrderDetailRequest);
-        }
-
-        [HttpGet]
-        public GetOrderSummaryResponse GetOrderSummary(string request)
-        {
-            var getOrderSummaryRequest = JsonSerializer.Deserialize<GetOrderSummaryRequest>(request);
-            return _orderModel.GetOrderSummary(getOrderSummaryRequest);
-        }
-
-        [HttpGet]
-        public GetOrdersDetailsResponse GetOrdersDetails(string request)
-        {
-            var getOrdersDetailsRequest = JsonSerializer.Deserialize<GetOrdersDetailsRequest>(request);
-            return _orderModel.GetOrdersDetails(getOrdersDetailsRequest);
-        }
-
-        [HttpGet]
-        public GetOrdersSummarysResponse GetOrdersSummarys(string request)
-        {
-            var getOrdersSummarysRequest = JsonSerializer.Deserialize<GetOrdersSummarysRequest>(request);
-            return _orderModel.GetOrdersSummarys(getOrdersSummarysRequest);
-        }
 
         #endregion
         
+
         #region POST
-        
-        [HttpPost]
-        [Route("post")]
-        public int Post(string request)
-        {
-            var loadOrderRequest = JsonSerializer.Deserialize<LoadOrderRequest>(request);
-            return _orderModel.Post(loadOrderRequest);
-        }
+
 
         [HttpGet]
         [Route("export")]
@@ -77,20 +45,25 @@ namespace ProductsAPI.Controllers
         {
             MASFARMACIADEVContext context = new MASFARMACIADEVContext();
             var query = context.EmailsFormatEntity.Find(1);
+            var email = "ferndzian@gmail.com";
+            var nameEmail = "Ian";
+            var nameEmail2 = "Fer";
+            var idOrder = 707;
+            var amount = 200;
             var sendEmailEntity = new SendEmailEntity()
             {
-                Email = "agustingonzalez660@gmail.com",
-                NameEmail = "Remitente",
-                Subject = "Orden de compra n°" + 0001,
+                Email = email,
+                NameEmail = nameEmail + nameEmail2,
+                Subject = "Orden de compra n°" + idOrder,
                 Body = query.Format
             };
+            sendEmailEntity.Body = sendEmailEntity.Body.Replace("{OrderNumber}", idOrder.ToString());
+            sendEmailEntity.Body = sendEmailEntity.Body.Replace("{TotalAmount}", amount.ToString());
             await _mailer.SendEmailAsync(sendEmailEntity);
             return NoContent();
         }
         
+
         #endregion
-
-        
-
     }
 }

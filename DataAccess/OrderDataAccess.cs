@@ -57,22 +57,23 @@ namespace ProductsAPI.Models
             return getOrderDetailResponse;
         }
 
-        public GetOrderSummaryResponse GetOrderSummary()
+        public string GetEmailFormat(int idState)
         {
-            var response = new GetOrderSummaryResponse();
-            return response;
-        }
-
-        public GetOrdersDetailsResponse GetOrdersDetails()
-        {
-            var response = new GetOrdersDetailsResponse();
-            return response;
-        }
-
-        public GetOrdersSummarysResponse GetOrdersSummarys()
-        {
-            var response = new GetOrdersSummarysResponse();
-            return response;
+            string formatEmail = "";
+            try
+            {
+                var query = context.EmailsFormatEntity.Find(idState);
+                if (query != null)
+                {
+                    formatEmail = query.Format;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("OrderDataAccess.GetEmailFormat : ERROR : "+ex.Message);
+                throw;
+            }
+            return formatEmail;
         }
 
 
@@ -142,8 +143,6 @@ namespace ProductsAPI.Models
 
 
         #endregion
-   
-
     }
 }
 

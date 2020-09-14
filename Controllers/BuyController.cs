@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using ProductsAPI.Models;
 using ProductsAPI.Data.Request;
 using System.Text.Json;
+using Email.Service;
 
 
 namespace ProductsAPI.Controllers
@@ -18,10 +19,10 @@ namespace ProductsAPI.Controllers
         private readonly ILogger<BuyController> _logger;
         private BuyModel _buyModel;
 
-        public BuyController(ILogger<BuyController> logger)
+        public BuyController(ILogger<BuyController> logger, IMailer mailer)
         {
             _logger = logger;
-            _buyModel = new BuyModel();
+            _buyModel = new BuyModel(mailer);
         }
 
 

@@ -25,7 +25,7 @@ namespace ProductsAPI.Models
             _buyDataAccess = new BuyDataAccess();
             _clientDataAccess = new ClientDataAccess();
             _orderDataAccess = new OrderDataAccess();
-            _orderModel = new OrderModel();
+            _orderModel = new OrderModel(mailer);
             _buyHelper = new BuyHelper(mailer);
         }
 

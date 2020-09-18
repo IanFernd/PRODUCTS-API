@@ -44,7 +44,7 @@ namespace ProductsAPI.Models
             return getFiltersResponse;
         }
 
-        public GetProductResponse GetByID(GetProductRequest request)
+        public GetProductResponse GetByID(int request)
         {
             var getProductResponse = new GetProductResponse();
             try

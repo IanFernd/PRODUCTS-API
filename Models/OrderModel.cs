@@ -15,10 +15,10 @@ namespace ProductsAPI.Models
 
         private OrderDataAccess _orderDataAccess;
         private OrderHelper _orderHelper;
-        public OrderModel()
+        public OrderModel(IMailer mailer)
         {
             _orderDataAccess = new OrderDataAccess();
-            _orderHelper = new OrderHelper();
+            _orderHelper = new OrderHelper(mailer);
         }
 
 
@@ -32,7 +32,7 @@ namespace ProductsAPI.Models
         
 
         //  Avanza el state de una order
-        public void NextStateOrder (int idOrder)
+        public string NextState (int idOrder)
         {
             // TODO
             var getOrderDetailResponse = _orderDataAccess.GetOrderDetail(idOrder);
@@ -43,15 +43,17 @@ namespace ProductsAPI.Models
                     _orderDataAccess.NextStateOrder(getOrderDetailResponse);
                     //  introducir el email, el nombre y apellido, resumen y cuerpo del mensaje
                     //_orderHelper.SendNextEmail();
-                    break;
+                    return "";
                 case 2:
                     _orderDataAccess.NextStateOrder(getOrderDetailResponse);
                     //  state 1 a 2
                     //  Segundo email, su compra se encuentra en proceso
                     //_orderHelper.SendNextEmail();
-                    break;
+                    return "";
                 case 3:
-                    break;
+                    return "El pedido ya se encuentra en estado finalizado";
+                default:
+                    return "Error, el codigo ingresado es incorrecto";
             }
         }
         

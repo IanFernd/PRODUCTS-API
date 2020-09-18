@@ -72,7 +72,7 @@ namespace ProductsAPI.Models
             return _dataAccessResponse;
         }
 
-        public GetProductResponse GetByID(GetProductRequest request)
+        public GetProductResponse GetByID(int IdProduct)
         {
             var getProductResponse = new GetProductResponse();
             try
@@ -82,7 +82,7 @@ namespace ProductsAPI.Models
                             join path in context.ResourcesEntity on p.IdResoruce equals path.IdResource
                             join cat in context.CategorysEntity on p.IdCategory equals cat.IdCategory
                             join subcat in context.SubCategorysEntity on p.IdSubCategory equals subcat.IdSubCategory
-                            where (p.IdProduct == request.IdProduct)
+                            where (p.IdProduct == IdProduct)
                             select new
                             {
                                     ProductEntity = new GetProductResponse

@@ -37,15 +37,6 @@ namespace ProductsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("getbyid")]
-        //  Obtiene producto introduciendo el id
-        public GetProductResponse GetByID(string request)
-        {
-            var getProductRequest = JsonSerializer.Deserialize<GetProductRequest>(request);
-            return _productModel.GetByID(getProductRequest);
-        }
-
-        [HttpGet]
         [Route("getcatalogall")]
         //  Obtiene todo el catalogo sin filtros
         public GetCatalogResponse GetCatalogAll()

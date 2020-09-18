@@ -25,7 +25,7 @@ namespace ProductsAPI.Controllers
         public OrderController(ILogger<OrderController> logger, IMailer mailer)
         {
             _logger = logger;
-            _orderModel = new OrderModel();
+            _orderModel = new OrderModel(mailer);
             _mailer = mailer;
         }
 
@@ -37,6 +37,14 @@ namespace ProductsAPI.Controllers
         
 
         #region POST
+
+        [HttpPost]
+        [Route("nextstate")]
+        public string NextState(string request)
+        {
+            var idOrder = JsonSerializer.Deserialize<int>(request);
+            return _orderModel.NextState(idOrder);
+        }
 
 
         [HttpGet]

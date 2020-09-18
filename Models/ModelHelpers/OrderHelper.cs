@@ -13,9 +13,9 @@ namespace ProductsAPI.Models.Helpers
     {
         private readonly IMailer _mailer;
 
-        public OrderHelper()
+        public OrderHelper(IMailer mailer)
         {
-
+            this._mailer = mailer;
         }
         public async void SendNextEmail(LoadBuyRequest request)
         {

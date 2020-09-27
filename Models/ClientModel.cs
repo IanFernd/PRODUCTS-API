@@ -11,7 +11,6 @@ namespace ProductsAPI.Models
     public class ClientModel 
     {
         private ClientDataAccess _clientDataAccess; 
-
         public ClientModel()
         {
             _clientDataAccess = new ClientDataAccess();
@@ -35,6 +34,7 @@ namespace ProductsAPI.Models
             }
             return getClientResponse;
         }
+        
         public GetClientResponse GetByEmail(GetClientRequest request)
         {
             GetClientResponse getClientResponse = new GetClientResponse();

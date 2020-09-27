@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using ProductsAPI.Data.Request;
 using ProductsAPI.Models.Helpers;
 using Email.Service;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ProductsAPI.Models
 {
@@ -32,29 +34,42 @@ namespace ProductsAPI.Models
         
 
         //  Avanza el state de una order
-        public string NextState (int idOrder)
+        public List<string> NextState (LoadNextStateOrder request)
         {
-            // TODO
-            var getOrderDetailResponse = _orderDataAccess.GetOrderDetail(idOrder);
-            var orderState = getOrderDetailResponse.IdState;
-            switch (orderState)
+            var resultList = new List<string>();
+            string result;
+            foreach (int order in request.OrderList)
             {
-                case 1:
-                    _orderDataAccess.NextStateOrder(getOrderDetailResponse);
-                    //  introducir el email, el nombre y apellido, resumen y cuerpo del mensaje
-                    //_orderHelper.SendNextEmail();
-                    return "";
-                case 2:
-                    _orderDataAccess.NextStateOrder(getOrderDetailResponse);
-                    //  state 1 a 2
-                    //  Segundo email, su compra se encuentra en proceso
-                    //_orderHelper.SendNextEmail();
-                    return "";
-                case 3:
-                    return "El pedido ya se encuentra en estado finalizado";
-                default:
-                    return "Error, el codigo ingresado es incorrecto";
+                var getOrderDetailResponse = _orderDataAccess.GetOrderDetail(order);
+                var orderState = getOrderDetailResponse.IdState;
+                switch (orderState)
+                {
+                    case 1:
+                        getOrderDetailResponse.IdStateOrder = _orderDataAccess.NextStateOrder(getOrderDetailResponse);
+                        //  Introducir el email, el nombre y apellido, resumen y cuerpo del mensaje
+                        _orderHelper.SendNextEmail(getOrderDetailResponse);
+                        result = order.ToString() + " Paso a pedido en proceso y se mando el email";
+                        resultList.Add(result);
+                        return resultList;
+                    case 2:
+                        getOrderDetailResponse.IdStateOrder = _orderDataAccess.NextStateOrder(getOrderDetailResponse);
+                        //  Segundo email, su compra se encuentra en proceso
+                        _orderHelper.SendNextEmail(getOrderDetailResponse);
+                        result = order.ToString() + " Paso a pedido finalizado y se mando el email";
+                        resultList.Add(result);
+                        return resultList;
+                    case 3:
+                        result = order.ToString() + " El pedido ya se encuentra en estado finalizado";
+                        resultList.Add(result);
+                        return resultList;
+                    default:
+
+                        result= order.ToString() + " Error, el codigo de orden ingresado es incorrecto";
+                        resultList.Add(result);
+                        return resultList;
+                }
             }
+            return resultList;
         }
         
 

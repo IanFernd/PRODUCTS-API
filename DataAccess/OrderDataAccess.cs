@@ -123,8 +123,9 @@ namespace ProductsAPI.Models
             }
         }
 
-        public void NextStateOrder (GetOrderDetailResponse request)
+        public int NextStateOrder (GetOrderDetailResponse request)
         {
+            int newStateOrder;
             try
             {
                 StatesOrdersEntity actualState = context.StatesOrdersEntity.Find(request.IdStateOrder);
@@ -133,12 +134,14 @@ namespace ProductsAPI.Models
                     actualState.IdState = actualState.IdState + 1;
                     context.SaveChanges();
                 }
+                newStateOrder = actualState.IdState;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("OrderDataAccess.NextStateOrder : ERROR : "+ex.Message);
                 throw;
             }
+            return newStateOrder;
         }
 
 

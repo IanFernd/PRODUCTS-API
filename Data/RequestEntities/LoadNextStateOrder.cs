@@ -4,8 +4,8 @@ using ProductsAPI.Data.Context.Entitys;
 
 namespace ProductsAPI.Data.Request
 {
-    public class GetProductRequest
+    public class LoadNextStateOrder
     {
-        public int IdProduct { get; set; }
+        public List<int> OrderList { get; set; }
     }
 }

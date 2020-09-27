@@ -12,20 +12,24 @@ namespace ProductsAPI.Models.Helpers
     public class OrderHelper
     {
         private readonly IMailer _mailer;
-
+        private OrderDataAccess _orderDataAccess;
         public OrderHelper(IMailer mailer)
         {
             this._mailer = mailer;
+            _orderDataAccess = new OrderDataAccess();
         }
-        public async void SendNextEmail(LoadBuyRequest request)
+
+        public async void SendNextEmail(GetOrderDetailResponse request)
         {
+            var format = _orderDataAccess.GetEmailFormat(request.IdStateOrder);
             var sendEmailEntity = new SendEmailEntity()
             {
-                Email = request.NewClient.Email,
-                NameEmail = request.NewClient.Name + request.NewClient.Surname,
-                Subject = "Orden de compra n°" + request.IdOrder,
-                Body = ""
+                Email = request.ClientEmail,
+                NameEmail = request.ClientName + request.ClientSurname,
+                Subject = "Orden de compra n° " + request.IdOrder,
+                Body = format
             };
+            sendEmailEntity.Body = sendEmailEntity.Body.Replace("{OrderNumber}", request.IdOrder.ToString());
             await _mailer.SendEmailAsync(sendEmailEntity);
         }
     }

@@ -31,6 +31,7 @@ namespace ProductsAPI.Controllers
 
         [HttpGet]
         [Route("getfilters")]
+        //  Obtiene los filtros que luego se utilizaran en el catalogo
         public GetFiltersResponse GetFilters()
         {
             return _productModel.GetFilters();

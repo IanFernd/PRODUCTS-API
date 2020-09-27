@@ -19,7 +19,6 @@ namespace ProductsAPI.Models
         private OrderDataAccess _orderDataAccess;
         private OrderModel _orderModel;
         private BuyHelper _buyHelper;
-        
         public BuyModel(IMailer mailer)
         {
             _buyDataAccess = new BuyDataAccess();

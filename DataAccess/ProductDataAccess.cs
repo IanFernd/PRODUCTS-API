@@ -14,7 +14,6 @@ namespace ProductsAPI.Models
     public class ProductDataAccess
     {
         private MASFARMACIADEVContext context;
-
         public ProductDataAccess()
         {
             context = new MASFARMACIADEVContext();
@@ -306,6 +305,8 @@ namespace ProductsAPI.Models
             }
             return _dataAccessResponse;
         }
+
+
         #endregion
 
 
@@ -394,7 +395,5 @@ namespace ProductsAPI.Models
 
 
         #endregion
-
-
     }
 }

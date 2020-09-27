@@ -21,7 +21,6 @@ namespace ProductsAPI.Controllers
         private readonly ILogger<OrderController> _logger;
         private readonly IMailer _mailer;
         private OrderModel _orderModel;
-
         public OrderController(ILogger<OrderController> logger, IMailer mailer)
         {
             _logger = logger;
@@ -42,8 +41,8 @@ namespace ProductsAPI.Controllers
         [Route("nextstate")]
         public string NextState(string request)
         {
-            var idOrder = JsonSerializer.Deserialize<int>(request);
-            return _orderModel.NextState(idOrder);
+            var loadNextStateOrder = JsonSerializer.Deserialize<LoadNextStateOrder>(request);
+            return _orderModel.NextState(loadNextStateOrder);
         }
 
 

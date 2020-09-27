@@ -14,7 +14,6 @@ namespace ProductsAPI.Models
     public class ClientDataAccess 
     {
         private MASFARMACIADEVContext context;
-
         public ClientDataAccess()
         {
             context = new MASFARMACIADEVContext();
@@ -131,6 +130,7 @@ namespace ProductsAPI.Models
 
 
         #endregion
+
 
         #region POST
 

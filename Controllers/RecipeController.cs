@@ -25,32 +25,10 @@ namespace ProductsAPI.Controllers
         }
 
         #region GET
-        
-        [HttpGet]
-        public GetRecipeDetailResponse GetRecipeDetail(string request)
-        {
-            var getRecipeDetailRequest = JsonSerializer.Deserialize<GetRecipeDetailRequest>(request);
-            return _recipeModel.GetRecipeDetail(getRecipeDetailRequest);
-        }
-        
-        [HttpGet]
-        public GetRecipeSummaryResponse GetRecipeSummary(string request)
-        {
-            var getRecipeSummaryRequest = JsonSerializer.Deserialize<GetRecipeSummaryRequest>(request);
-            return _recipeModel.GetRecipeSummary(getRecipeSummaryRequest);
-        }
 
         #endregion
 
         #region POST
-        
-        [HttpPost]
-        [Route("post")]
-        public int Post(string request)
-        {
-            var loadRecipeRequest = JsonSerializer.Deserialize<LoadRecipeRequest>(request);
-            return _recipeModel.Post(loadRecipeRequest);
-        }
         
         #endregion
          

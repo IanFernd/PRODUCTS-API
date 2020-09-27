@@ -44,21 +44,6 @@ namespace ProductsAPI.Models
             return getFiltersResponse;
         }
 
-        public GetProductResponse GetByID(int request)
-        {
-            var getProductResponse = new GetProductResponse();
-            try
-            {
-                getProductResponse = _productDataAccess.GetByID(request);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ProductModel.GetByID : ERROR : "+ex.Message);
-                throw;
-            }
-            return getProductResponse;
-        }
-
         public GetCatalogResponse GetCatalogAll()
         {   
             var getCatalogResponse = new GetCatalogResponse();
@@ -186,6 +171,7 @@ namespace ProductsAPI.Models
                 return 500;
             }
         }
+
 
         #endregion
     }

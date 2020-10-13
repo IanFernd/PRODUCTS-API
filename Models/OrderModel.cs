@@ -7,7 +7,6 @@ using ProductsAPI.Data.Request;
 using ProductsAPI.Models.Helpers;
 using Email.Service;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace ProductsAPI.Models
 {
@@ -16,15 +15,41 @@ namespace ProductsAPI.Models
     {
 
         private OrderDataAccess _orderDataAccess;
+        private BuyDataAccess _buyDataAccess;
+        private ClientDataAccess _clientDataAccess;
         private OrderHelper _orderHelper;
         public OrderModel(IMailer mailer)
         {
             _orderDataAccess = new OrderDataAccess();
+            _buyDataAccess = new BuyDataAccess();
+            _clientDataAccess = new ClientDataAccess();
             _orderHelper = new OrderHelper(mailer);
         }
 
 
         #region GET
+
+
+        public GetOrderResponse GetOrder(int request)
+        {
+            var getOrderResponse = new GetOrderResponse();
+            try
+            {
+                //  Datos de la compra
+                getOrderResponse = _orderDataAccess.GetOrder(request);
+
+                // Datos del cliente
+                var clientResponse = _clientDataAccess.GetById(getOrderResponse.IdClient);
+                getOrderResponse.ClientEntity = clientResponse.ClientEntity;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("OrderModel.GetOrder : ERROR : "+ex.Message);
+                //  Error interno del servidor
+                throw;
+            }
+            return getOrderResponse;
+        } 
 
 
         #endregion

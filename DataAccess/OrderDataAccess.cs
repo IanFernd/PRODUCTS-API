@@ -21,6 +21,58 @@ namespace ProductsAPI.Models
 
         #region GET
 
+        public GetOrderResponse GetOrder(int request)
+        {
+            var getOrderResponse = new GetOrderResponse();
+            try
+            {
+                var query = from b in context.BuysEntity
+                            join bd in context.BuysDetailsEntity on b.IdBuy equals bd.IdBuy
+                            where (b.IdOrder == request)
+                            select new
+                            {
+                                buyDetails = new BuysDetailsEntity
+                                {
+                                    IdBuyDetail = bd.IdBuyDetail,
+                                    IdProduct = bd.IdProduct,
+                                    Quantity = bd.Quantity,
+                                    IdBuy = bd.IdBuy
+                                },
+                                buyheader = new BuysEntity
+                                {
+                                    IdBuy = b.IdBuy,
+                                    UploadDate = b.UploadDate,
+                                    TotalAmount = b.TotalAmount,
+                                    IdOrder = b.IdOrder,
+                                    IdClient = b.IdClient
+                                }
+                            };
+                if (query != null)
+                {
+                    var ListTemp = new List<BuysDetailsEntity>();
+                    foreach (var obj in query)
+                    {
+                        if (getOrderResponse.IdClient == 0)
+                        {
+                            getOrderResponse.IdBuy = obj.buyheader.IdBuy;
+                            getOrderResponse.UploadDate = obj.buyheader.UploadDate;
+                            getOrderResponse.TotalAmount = obj.buyheader.TotalAmount;
+                            getOrderResponse.IdOrder = obj.buyheader.IdOrder;
+                            getOrderResponse.IdClient = obj.buyheader.IdClient;
+                        }
+                        ListTemp.Add(obj.buyDetails);
+                    }
+                    getOrderResponse.BuyDetailsEntities = ListTemp;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("OrderDataAccess.GetOrder : ERROR : "+ex.Message);
+                throw;
+            }
+            return getOrderResponse;
+        }
+
         public GetOrderDetailResponse GetOrderDetail(int IdOrder)
         {
             var getOrderDetailResponse = new GetOrderDetailResponse();

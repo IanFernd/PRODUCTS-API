@@ -50,6 +50,8 @@ namespace ProductsAPI.Models.Helpers
                 Subject = "Orden de compra n° " + request.IdOrder,
                 Body = "Venta a: " + request.NewClient + "/br Monto Total: " + request.TotalAmount + "/br Realizada el: " + request.UploadDate + "/brDetalle: " + products,
             };
+            sendEmailSale.Body = sendEmailSale.Body.Replace("{OrderNumber}", request.IdOrder.ToString());
+            sendEmailSale.Body = sendEmailSale.Body.Replace("{Client}", request.NewClient.Name + request.NewClient.Surname);
             await _mailer.SendEmailAsync(sendEmailSale);
         }
     }

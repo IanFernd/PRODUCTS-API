@@ -31,6 +31,14 @@ namespace ProductsAPI.Controllers
 
         #region GET
 
+        [HttpGet]
+        [Route("getorder")]
+        //  Obtiene el cliente, la venta y el detalle
+        public GetOrderResponse GetOrder(string request)
+        {
+            var getOrderRequest = JsonSerializer.Deserialize<int>(request);
+            return _orderModel.GetOrder(getOrderRequest);
+        } 
 
         #endregion
         
@@ -39,7 +47,7 @@ namespace ProductsAPI.Controllers
 
         [HttpPost]
         [Route("nextstate")]
-        public string NextState(string request)
+        public List<string> NextState(string request)
         {
             var loadNextStateOrder = JsonSerializer.Deserialize<LoadNextStateOrder>(request);
             return _orderModel.NextState(loadNextStateOrder);

@@ -92,10 +92,11 @@ namespace ProductsAPI.Models
                 request.IdBuy = _buyDataAccess.PostBuy(request);
                 _buyDataAccess.PostBuyDetail(request);
 
-                _buyHelper.SendFirstEmail(request);
+                //  Envia emails a cliente y farmacia
+                _buyHelper.SendFirstEmails(request);
 
                 //  Retorna 204: La peticion ha sido manejada con exito y la respuesta no tiene contenido
-                return 204;
+                return request.IdOrder;
             }
             catch (Exception ex)
             {

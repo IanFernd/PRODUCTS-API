@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Email.Service.SmtpSetting;
 using Email.Service;
 using Email.Service.Entity;
+using System.Text.Json;
 
 namespace ProductsAPI.Models.Helpers
 {
@@ -21,7 +22,7 @@ namespace ProductsAPI.Models.Helpers
             _productDataAccess = new ProductDataAccess();
             this._mailer = mailer;
         }
-        public async void SendFirstEmail(LoadBuyRequest request)
+        public async void SendFirstEmails(LoadBuyRequest request)
         {
             //  Valores del primer email al cliente
             var format = _orderDataAccess.GetEmailFormat(1);
@@ -37,21 +38,16 @@ namespace ProductsAPI.Models.Helpers
             await _mailer.SendEmailAsync(sendEmailClient);
 
             //  Valores del primer email a farma
-            List <GetProductResponse> products = new List<GetProductResponse>();
-            foreach (var product in request.BuyDetail)
-            {
-                var productInfo = _productDataAccess.GetByID(product.IdProduct);
-                products.Add(productInfo);
-            }
             var sendEmailSale = new SendEmailEntity()
             {
                 Email = "ferndzian@gmail.com",
                 NameEmail = "Venta",
                 Subject = "Orden de compra n° " + request.IdOrder,
-                Body = "Venta a: " + request.NewClient + "/br Monto Total: " + request.TotalAmount + "/br Realizada el: " + request.UploadDate + "/brDetalle: " + products,
+                Body = "Nueva Venta! " + "</br>" + "{Obj}"
             };
+            string requestString = JsonSerializer.Serialize(request);
             sendEmailSale.Body = sendEmailSale.Body.Replace("{OrderNumber}", request.IdOrder.ToString());
-            sendEmailSale.Body = sendEmailSale.Body.Replace("{Client}", request.NewClient.Name + request.NewClient.Surname);
+            sendEmailSale.Body = sendEmailSale.Body.Replace("{Obj}", requestString);
             await _mailer.SendEmailAsync(sendEmailSale);
         }
     }

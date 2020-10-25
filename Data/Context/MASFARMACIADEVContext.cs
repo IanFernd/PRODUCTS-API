@@ -219,6 +219,12 @@ namespace ProductsAPI.Data.Context
                 entity.Property(e => e.Recipe).HasColumnName("recipe");
 
                 entity.Property(e => e.Stock).HasColumnName("stock");
+
+                entity.Property(e => e.EAN)
+                    .IsRequired()
+                    .HasColumnName("ean")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<BuysEntity>(entity =>
@@ -240,6 +246,8 @@ namespace ProductsAPI.Data.Context
                 entity.Property(e => e.UploadDate)
                     .HasColumnName("upload_date")
                     .HasColumnType("date");
+
+                entity.Property(e => e.IdMeLi).HasColumnName("id_meli");
             });
 
             modelBuilder.Entity<BuysDetailsEntity>(entity =>

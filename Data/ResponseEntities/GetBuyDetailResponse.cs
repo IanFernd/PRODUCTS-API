@@ -12,6 +12,7 @@ namespace ProductsAPI.Data.Request
         public decimal TotalAmount { get; set; }
         public int IdOrder { get; set; }
         public int  IdClient { get; set; } 
+        public int? IdMeLi { get; set; }
         public List  <BuysDetailsEntity> BuyDetailsEntities { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace ProductsAPI.Data.Request
         public int IdTypeOrder { get; set; }
         public int IdOrder { get; set; }
         public int IdBuy { get; set; } 
+        public int? IdMeLi { get; set; }
         public List  <LoadBuyDetailRequest> BuyDetail { get; set; }
     }
 }

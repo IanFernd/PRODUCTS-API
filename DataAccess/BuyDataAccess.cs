@@ -45,7 +45,8 @@ namespace ProductsAPI.Models
                                     UploadDate = b.UploadDate,
                                     TotalAmount = b.TotalAmount,
                                     IdOrder = b.IdOrder,
-                                    IdClient = b.IdClient
+                                    IdClient = b.IdClient,
+                                    IdMeLi = b.IdMeLi
                                 }
                             };
                 if (query != null)
@@ -60,6 +61,10 @@ namespace ProductsAPI.Models
                             getBuyDetailResponse.TotalAmount = obj.buyheader.TotalAmount;
                             getBuyDetailResponse.IdOrder = obj.buyheader.IdOrder;
                             getBuyDetailResponse.IdClient = obj.buyheader.IdClient;
+                            if (obj.buyheader.IdMeLi != null)
+                            {
+                                getBuyDetailResponse.IdMeLi = obj.buyheader.IdMeLi;
+                            }
                         }
                         ListTemp.Add(obj.buyDetails);
                     }
@@ -109,6 +114,7 @@ namespace ProductsAPI.Models
                     TotalAmount = request.TotalAmount,
                     IdClient = request.IdClient,
                     IdOrder = request.IdOrder,
+                    IdMeLi = request.IdMeLi
                 };
                 context.BuysEntity.Add(buysEntity);
                 context.SaveChanges();

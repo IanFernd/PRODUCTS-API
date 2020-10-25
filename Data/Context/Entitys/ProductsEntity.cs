@@ -15,5 +15,6 @@ namespace ProductsAPI.Data.Context.Entitys
         public int IdSubCategory { get; set; }
         public int? Recipe { get; set; }
         public int? IdResoruce { get; set; }
+        public string EAN { get; set; }
     }
 }

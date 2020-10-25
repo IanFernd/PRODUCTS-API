@@ -79,7 +79,7 @@ namespace ProductsAPI.Models
                     case 2:
                         getOrderDetailResponse.IdStateOrder = _orderDataAccess.NextStateOrder(getOrderDetailResponse);
                         //  Segundo email, su compra se encuentra en proceso
-                        _orderHelper.SendNextEmail(getOrderDetailResponse);
+                        // _orderHelper.SendNextEmail(getOrderDetailResponse);
                         result = order.ToString() + " Paso a pedido finalizado y se mando el email";
                         resultList.Add(result);
                         return resultList;

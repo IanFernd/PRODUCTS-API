@@ -56,26 +56,19 @@ namespace ProductsAPI.Controllers
 
         [HttpGet]
         [Route("export")]
-        public async Task<IActionResult> ExportDate()
+        public void ExportDate(LoadBuyRequest request)
         {
             MASFARMACIADEVContext context = new MASFARMACIADEVContext();
-            var query = context.EmailsFormatEntity.Find(1);
-            var email = "ferndzian@gmail.com";
-            var nameEmail = "Ian";
-            var nameEmail2 = "Fer";
-            var idOrder = 707;
-            var amount = 200;
-            var sendEmailEntity = new SendEmailEntity()
+            var sendEmailSale = new SendEmailEntity()
             {
-                Email = email,
-                NameEmail = nameEmail + nameEmail2,
-                Subject = "Orden de compra n°" + idOrder,
-                Body = query.Format
+                Email = "ferndzian@gmail.com",
+                NameEmail = "Venta",
+                Subject = "Orden de compra n° " + request.IdOrder,
+                Body = "Nueva Venta! /br {Obj}"
             };
-            sendEmailEntity.Body = sendEmailEntity.Body.Replace("{OrderNumber}", idOrder.ToString());
-            sendEmailEntity.Body = sendEmailEntity.Body.Replace("{TotalAmount}", amount.ToString());
-            await _mailer.SendEmailAsync(sendEmailEntity);
-            return NoContent();
+            sendEmailSale.Body = sendEmailSale.Body.Replace("{OrderNumber}", request.IdOrder.ToString());
+            sendEmailSale.Body = sendEmailSale.Body.Replace("{Obj}", request.ToString());
+            _mailer.SendEmailAsync(sendEmailSale);
         }
         
 

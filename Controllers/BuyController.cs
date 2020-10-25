@@ -55,11 +55,6 @@ namespace ProductsAPI.Controllers
 
         [HttpPost]
         [Route("postbuy")]
-        //  Carga una venta
-        //  Client:
-        //  TotalAmount:
-        //  TypeOder: 1-Sucursal 2-Envio (Ej)
-        //  Detail: {   idproduct - quantity    }
         public int PostBuy(string request)
         {
             var loadBuyRequest = JsonSerializer.Deserialize<LoadBuyRequest>(request);

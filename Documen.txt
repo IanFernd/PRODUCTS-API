@@ -1,0 +1,54 @@
+MAS-FARMACIA-API
+
+Esta documentacion fue creada con el fin de facilitar el acceso a la informacion sobre el 
+codigo de esta API.
+Las secciones estan divididas por el controllador y se puede buscar facilmente por el 
+metodo de acceso.
+
+
+Buy controller:
+
+    GET 
+    /getbuy -> Obtiene el cliente, la venta y el detalle con el Id de compra (IdBuy)
+    /getbuyssummary -> Obtiene los header de compra.
+
+    Get metodos open, en ambos casos se obtiene un Json con los datos solicitados,
+    en caso de buscar datos mas detallados se recomienda acceder a /getbuy con el Id de Compra
+    que solo lo tiene la farmacia. No confundir con el IdOrder que tiene otras caracteristicas.
+
+    POST
+    /postbuy -> carga una venta
+
+    El metodo Post creado carga una venta con una serie de datos. 
+    Se necesita todos los datos del cliente, el monton total de la venta, el tipo de orden 
+    (1 - Retiro en sucural, 2 - Envio a domicilio) almacenado en la tabla Types_Orders, el codigo
+    de mercadolibre (IdMeLi) y el detalle de la venta (Id producto y cantidad). 
+    Para cualquier duda consulta la entidad LoadBuyRequest.cs, Aunque las siguientes propiedades
+    se genera a traves del codigo:
+    UploadDate: BuyModels, general la fecha de carga de la venta
+    IdBuy, IdOrder, IdClient: En los dataAccess correspondientes cuando se carga la info a cada tabla
+    El flujo del metodo inicia en el BuyModel: se le asigna la fecha, se carga la entidad nuevo cliente, 
+    se carga la orden, el estado de la orden, la compra, el detalle de compra y por ultimo se mandan 
+    los emails (ver mailer).
+
+Client controller:
+
+    GET
+    /getbyid -> Obtiene el client ingresando el IdClient
+    /getbyemail -> Obtiene el client ingresando el Email
+    /getclients -> Obtiene una lista de clientes
+    /getidentypes -> Obtiene una lista de tipos de identificacion (DNI, CUIL, etc)
+
+    Los metodos del Get de clientes son bastante variados. el metodo de tipos de identificacion
+    es muy importante para la carga del formulario de venta.
+
+    POST
+    /post -> Carga un client
+    /loadnewsletter -> carga un newsletter, email obligatorio, telefono optativo
+
+    Con el newsletter hay que definir si se puede ingresar solamente el telefono.
+
+Order controller:
+
+    GET
+    

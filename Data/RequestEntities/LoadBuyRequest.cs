@@ -8,7 +8,7 @@ namespace ProductsAPI.Data.Request
     {
         public LoadClientRequest NewClient { get; set; }
         public DateTime UploadDate { get; set; }
-        public decimal TotalAmount { get; set; }
+        public string TotalAmount { get; set; }
         public int IdClient { get; set; }
         public int IdTypeOrder { get; set; }
         public int IdOrder { get; set; }

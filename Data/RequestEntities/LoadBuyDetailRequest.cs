@@ -7,5 +7,6 @@ namespace ProductsAPI.Data.Request
     {
         public int IdProduct { get; set; }
         public int Quantity { get; set; }
+        public string EAN { get; set; }
     }
 }

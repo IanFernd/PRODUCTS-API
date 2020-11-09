@@ -78,7 +78,6 @@ namespace ProductsAPI.Models
             {
                 var query = from p in context.ProductsEntity
                             join m in context.MarcasEntity on p.IdMarca equals m.IdMarca
-                            join path in context.ResourcesEntity on p.IdResoruce equals path.IdResource
                             join cat in context.CategorysEntity on p.IdCategory equals cat.IdCategory
                             join subcat in context.SubCategorysEntity on p.IdSubCategory equals subcat.IdSubCategory
                             where (p.IdProduct == IdProduct)
@@ -97,7 +96,8 @@ namespace ProductsAPI.Models
                                         Category = cat.Description,
                                         IdSubCategory = p.IdSubCategory,
                                         SubCategory = subcat.Description,
-                                        Path = path.Path
+                                        EAN = p.EAN,
+                                        ImgCount = p.ImgCount
                                     },
                             };
                 if (query != null)
@@ -121,7 +121,6 @@ namespace ProductsAPI.Models
             {
                 var query = from p in context.ProductsEntity
                             join m in context.MarcasEntity on p.IdMarca equals m.IdMarca
-                            join path in context.ResourcesEntity on p.IdResoruce equals path.IdResource
                             join cat in context.CategorysEntity on p.IdCategory equals cat.IdCategory
                             join subcat in context.SubCategorysEntity on p.IdSubCategory equals subcat.IdSubCategory
                             where (p.Stock > 0)
@@ -142,7 +141,8 @@ namespace ProductsAPI.Models
                                         Category = cat.Description,
                                         IdSubCategory = p.IdSubCategory,
                                         SubCategory = subcat.Description,
-                                        Path = path.Path
+                                        EAN = p.EAN,
+                                        ImgCount = p.ImgCount
                                     },
                                     CategoryUsed = new CategorysEntity
                                     {
@@ -185,7 +185,6 @@ namespace ProductsAPI.Models
             {
                 var query = from p in context.ProductsEntity
                             join m in context.MarcasEntity on p.IdMarca equals m.IdMarca
-                            join path in context.ResourcesEntity on p.IdResoruce equals path.IdResource
                             join cat in context.CategorysEntity on p.IdCategory equals cat.IdCategory
                             join subcat in context.SubCategorysEntity on p.IdSubCategory equals subcat.IdSubCategory
                             where (m.Description.Contains(request.SearchBarText) || p.Description.Contains(request.SearchBarText)) && p.Stock > 0
@@ -206,7 +205,8 @@ namespace ProductsAPI.Models
                                         Category = cat.Description,
                                         IdSubCategory = p.IdSubCategory,
                                         SubCategory = subcat.Description,
-                                        Path = path.Path
+                                        EAN = p.EAN,
+                                        ImgCount = p.ImgCount
                                     },
                                     CategoryUsed = new CategorysEntity
                                     {
@@ -249,7 +249,6 @@ namespace ProductsAPI.Models
             {
                 var query = from p in context.ProductsEntity
                             join m in context.MarcasEntity on p.IdMarca equals m.IdMarca
-                            join path in context.ResourcesEntity on p.IdResoruce equals path.IdResource
                             join cat in context.CategorysEntity on p.IdCategory equals cat.IdCategory
                             join subcat in context.SubCategorysEntity on p.IdSubCategory equals subcat.IdSubCategory
                             where (p.Price > request.PriceMin && p.Price < request.PriceMax && p.Stock > 0)
@@ -270,7 +269,8 @@ namespace ProductsAPI.Models
                                         Category = cat.Description,
                                         IdSubCategory = p.IdSubCategory,
                                         SubCategory = subcat.Description,
-                                        Path = path.Path
+                                        EAN = p.EAN,
+                                        ImgCount = p.ImgCount
                                     },
                                     CategoryUsed = new CategorysEntity
                                     {
@@ -327,7 +327,8 @@ namespace ProductsAPI.Models
                     IdCategory = request.IdCategory,
                     IdSubCategory = request.IdSubCategory,
                     Recipe = request.Recipe,
-                    IdResoruce = request.IdResoruce
+                    EAN = request.EAN,
+                    ImgCount = request.ImgCount
                 };
                 context.ProductsEntity.Add(productEntity);
                 context.SaveChanges();

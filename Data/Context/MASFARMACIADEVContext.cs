@@ -26,7 +26,6 @@ namespace ProductsAPI.Data.Context
         public virtual DbSet<BuysEntity> BuysEntity { get; set; }
         public virtual DbSet<BuysDetailsEntity> BuysDetailsEntity { get; set; }
         public virtual DbSet<RecipesEntity> RecipesEntity { get; set; }
-        public virtual DbSet<ResourcesEntity> ResourcesEntity { get; set; }
         public virtual DbSet<StatesEntity> StatesEntity { get; set; }
         public virtual DbSet<StatesOrdersEntity> StatesOrdersEntity { get; set; }
         public virtual DbSet<SubCategorysEntity> SubCategorysEntity { get; set; }
@@ -208,7 +207,7 @@ namespace ProductsAPI.Data.Context
 
                 entity.Property(e => e.IdCategory).HasColumnName("id_category");
 
-                entity.Property(e => e.IdResoruce).HasColumnName("id_resoruce");
+                entity.Property(e => e.ImgCount).HasColumnName("img_count");
 
                 entity.Property(e => e.IdSubCategory).HasColumnName("id_sub_category");
 
@@ -277,21 +276,6 @@ namespace ProductsAPI.Data.Context
                     .IsRequired()
                     .HasColumnName("path")
                     .HasMaxLength(150)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<ResourcesEntity>(entity =>
-            {
-                entity.HasKey(e => e.IdResource);
-
-                entity.ToTable("Resources", "dbo");
-
-                entity.Property(e => e.IdResource).HasColumnName("id_resource");
-
-                entity.Property(e => e.Path)
-                    .IsRequired()
-                    .HasColumnName("path")
-                    .HasMaxLength(200)
                     .IsUnicode(false);
             });
 

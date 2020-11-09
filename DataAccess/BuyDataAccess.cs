@@ -106,12 +106,13 @@ namespace ProductsAPI.Models
         public int PostBuy(LoadBuyRequest request)
         {
             int idBuyResponse;
+            decimal DecimalAmount = Convert.ToDecimal(request.TotalAmount);
             try
             {
                 BuysEntity buysEntity = new BuysEntity()
                 {
                     UploadDate = request.UploadDate,
-                    TotalAmount = request.TotalAmount,
+                    TotalAmount = DecimalAmount,
                     IdClient = request.IdClient,
                     IdOrder = request.IdOrder,
                     IdMeLi = request.IdMeLi

@@ -17,6 +17,7 @@ namespace ProductsAPI.Data.Request
         public int IdSubCategory { get; set; }
         public string SubCategory { get; set; }
         public int? Recipe { get; set; }
-        public string Path { get; set; }
+        public string EAN { get; set; }
+        public int ImgCount { get; set; }
     }
 }
